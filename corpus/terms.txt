@@ -1,0 +1,13 @@
+===========
+Simple term
+===========
+
+-term = value
+
+---
+
+(body
+  (term
+    (term_identifier) (pattern)
+  )
+)

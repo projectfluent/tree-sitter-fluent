@@ -1,0 +1,25 @@
+==============
+Unicode Escape
+==============
+
+id=\uA1D2
+
+---
+
+(body
+  (message
+    (identifier) (pattern))
+)
+
+==============
+Escape \ and {
+==============
+
+one=start \\ and \{ end
+
+---
+
+(body
+  (message
+    (identifier) (pattern))
+)

@@ -1,0 +1,43 @@
+==================
+Error: stray brace
+==================
+
+one=one
+two=start{end
+three=three
+
+---
+
+(body
+  (message
+    (identifier) (pattern))
+  (message
+    (identifier) (pattern
+      (ERROR (UNEXPECTED '{'))
+    )
+  )
+  (message
+    (identifier) (pattern))
+)
+
+=========================
+Error: bad unicode escape
+=========================
+
+one=one
+two=start\u0zend
+three=three
+
+---
+
+(body
+  (message
+    (identifier) (pattern))
+  (message
+    (identifier) (pattern
+      (ERROR)
+    )
+  )
+  (message
+    (identifier) (pattern))
+)

@@ -1,0 +1,59 @@
+==============
+Single Comment
+==============
+
+# One line
+#
+
+---
+
+(body
+  (comment)
+  (comment)
+)
+
+==============
+Resource comment
+==============
+
+### One line
+###
+### Last line
+
+---
+
+(body
+  (resource_comment)
+  (resource_comment)
+  (resource_comment)
+)
+
+==============
+Block comment
+==============
+
+## One line
+
+---
+
+(body
+  (block_comment)
+)
+
+=================
+Multiline comment
+=================
+
+## Subject line
+##
+## This goes on and on.
+## And there's more to come still
+
+---
+
+(body
+  (block_comment)
+  (block_comment)
+  (block_comment)
+  (block_comment)
+)

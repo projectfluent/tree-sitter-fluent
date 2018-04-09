@@ -1,0 +1,23 @@
+{
+  "name": "tree-sitter-fluent",
+  "version": "0.0.1",
+  "description": "Fluent grammar for tree-sitter",
+  "main": "index.js",
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "vows test/test-*.js && tree-sitter test && tree-sitter parse examples --quiet --time"
+  },
+  "keywords": [
+    "parser",
+    "lexer",
+    "fluent"
+  ],
+  "author": "Axel Hecht",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nan": "^2.4.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.11.3"
+  }
+}
