@@ -3,3 +3,7 @@ tree-sitter-fluent-*
 node_modules
 build
 *.log
+.travis.yml
+dsl
+test
+corpus
