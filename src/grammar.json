@@ -93,8 +93,20 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "[ \\t].*"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_space"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_comment_char"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -114,8 +126,20 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "[ \\t].*"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_space"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_comment_char"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -135,8 +159,20 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "[ \\t].*"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_inline_space"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_comment_char"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -440,90 +476,127 @@
       "type": "SYMBOL",
       "name": "_text"
     },
-    "_inline_char": {
+    "__comment_char__inline_char": {
+      "type": "PATTERN",
+      "value": "[\t -#%-,\\.-\\/:-@^`|-퟿-�]"
+    },
+    "__comment_char__external_sigil__inline_char": {
+      "type": "PATTERN",
+      "value": "[$]"
+    },
+    "__comment_char__identifier__inline_char__term_sigil": {
+      "type": "PATTERN",
+      "value": "[-]"
+    },
+    "__comment_char__identifier__inline_char": {
+      "type": "PATTERN",
+      "value": "[0-9_]"
+    },
+    "__comment_char__identifier__identifier_start__inline_char": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]"
+    },
+    "__comment_char__identifier_start__inline_char": {
+      "type": "PATTERN",
+      "value": "[\\[\\]]"
+    },
+    "_comment_char": {
       "type": "CHOICE",
       "members": [
         {
           "type": "PATTERN",
-          "value": "[\t -#%-,\\.-\\/:-@^`|-퟿-�]"
+          "value": "[\\{]"
         },
         {
           "type": "SYMBOL",
-          "name": "__external_sigil__inline_char"
+          "name": "__comment_char__external_sigil__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier__identifier_start__inline_char"
+          "name": "__comment_char__identifier__identifier_start__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier__inline_char"
+          "name": "__comment_char__identifier__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier__inline_char__term_sigil"
+          "name": "__comment_char__identifier__inline_char__term_sigil"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier_start__inline_char"
+          "name": "__comment_char__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__inline_char"
         }
       ]
     },
-    "__external_sigil__inline_char": {
-      "type": "PATTERN",
-      "value": "[$]"
-    },
-    "__identifier__inline_char__term_sigil": {
-      "type": "PATTERN",
-      "value": "[-]"
-    },
-    "__identifier__inline_char": {
-      "type": "PATTERN",
-      "value": "[0-9_]"
-    },
-    "__identifier__identifier_start__inline_char": {
-      "type": "PATTERN",
-      "value": "[A-Za-z]"
-    },
-    "__identifier_start__inline_char": {
-      "type": "PATTERN",
-      "value": "[\\[\\]]"
+    "_inline_char": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__external_sigil__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__identifier__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__identifier__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__identifier__inline_char__term_sigil"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__comment_char__inline_char"
+        }
+      ]
     },
     "_external_sigil": {
       "type": "SYMBOL",
-      "name": "__external_sigil__inline_char"
+      "name": "__comment_char__external_sigil__inline_char"
     },
     "_identifier": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "__identifier__identifier_start__inline_char"
+          "name": "__comment_char__identifier__identifier_start__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier__inline_char"
+          "name": "__comment_char__identifier__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier__inline_char__term_sigil"
+          "name": "__comment_char__identifier__inline_char__term_sigil"
         }
       ]
     },
     "_term_sigil": {
       "type": "SYMBOL",
-      "name": "__identifier__inline_char__term_sigil"
+      "name": "__comment_char__identifier__inline_char__term_sigil"
     },
     "_identifier_start": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "__identifier__identifier_start__inline_char"
+          "name": "__comment_char__identifier__identifier_start__inline_char"
         },
         {
           "type": "SYMBOL",
-          "name": "__identifier_start__inline_char"
+          "name": "__comment_char__identifier_start__inline_char"
         }
       ]
     }

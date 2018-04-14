@@ -16,6 +16,21 @@ linter.addRangeList('_external_sigil', '$');
 linter.addRangeList('_inline_char', NT_Char, '\r\n\\{');
 linter.addRangeList('_comment_char', NT_Char, '\r\n');
 
+function COMMENT(sigil) {
+  return $ => seq(
+    sigil,
+    optional(seq($._inline_space, /.*/)),
+    // optional(seq($._inline_space, repeat($._comment_char))),
+    // TODO: block comments
+    repeat(
+      $._line_break,
+      sigil,
+      optional(seq($._inline_space, /.*/))
+    )
+  );
+}
+
+
 module.exports = grammar({
   name: 'fluent',
 
@@ -42,9 +57,9 @@ module.exports = grammar({
       $.resource_comment,
       $.block_comment,
       $.comment),
-    resource_comment: $ => seq('###', optional(/[ \t].*/)),
-    block_comment: $ => seq('##', optional(/[ \t].*/)),
-    comment: $ => seq('#', optional(/[ \t].*/)),
+    resource_comment: COMMENT('###'),
+    block_comment: COMMENT('##'),
+    comment: COMMENT('#'),
 
     identifier: $ => seq(
       $._identifier_start,
