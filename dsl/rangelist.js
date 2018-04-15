@@ -1,6 +1,6 @@
 /**
  * RangeList
- * 
+ *
  * Subclass of Array.
  * Parse character ranges into a list of ranges, and can setdiff two
  * ranges, using Range.setdiff under the hood.
@@ -8,7 +8,7 @@
 const { Range } = require('./range');
 
 class RangeList extends Array {
-    static parseFromString(ranges) {
+    static parseFromString(ranges, excludes='') {
         var range_objects = [];
         var range_re = /^.-./;
         while (ranges) {
@@ -34,7 +34,12 @@ class RangeList extends Array {
                 range.end = Math.max(range.end, other_range.end);
             }
         }
-        return rangelist;    
+        if (excludes) {
+          rangelist = new RangeList(
+            ...rangelist.setdiff(RangeList.parseFromString(excludes))
+          );
+        }
+        return rangelist;
     }
 
     *setdiff(other_list) {
@@ -69,7 +74,11 @@ class RangeList extends Array {
                 range = value;
             }
         }
-    
+
+    }
+
+    get re() {
+      return new RegExp('[' + this.join('') + ']');
     }
 }
 
