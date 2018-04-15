@@ -146,16 +146,60 @@
       ]
     },
     "identifier": {
-      "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z_0-9_-]+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_identifier_start"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_identifier"
+          }
+        }
+      ]
     },
     "term_identifier": {
-      "type": "PATTERN",
-      "value": "-[a-zA-Z][a-zA-Z_0-9_-]+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_term_sigil"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_identifier_start"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_identifier"
+          }
+        }
+      ]
     },
     "external_identifier": {
-      "type": "PATTERN",
-      "value": "\\$[a-zA-Z][a-zA-Z_0-9_-]+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_external_sigil"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_identifier_start"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_identifier"
+          }
+        }
+      ]
     },
     "_line_break": {
       "type": "PATTERN",
@@ -198,10 +242,6 @@
           "name": "_inline_space"
         }
       ]
-    },
-    "_inline_char": {
-      "type": "PATTERN",
-      "value": "[\t -\\[\\]-z|-퟿-�]"
     },
     "_char": {
       "type": "CHOICE",
@@ -399,6 +439,93 @@
     "pattern": {
       "type": "SYMBOL",
       "name": "_text"
+    },
+    "_inline_char": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[\t -#%-,\\.-\\/:-@^`|-퟿-�]"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__external_sigil__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__inline_char__term_sigil"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier_start__inline_char"
+        }
+      ]
+    },
+    "__external_sigil__inline_char": {
+      "type": "PATTERN",
+      "value": "[$]"
+    },
+    "__identifier__inline_char__term_sigil": {
+      "type": "PATTERN",
+      "value": "[-]"
+    },
+    "__identifier__inline_char": {
+      "type": "PATTERN",
+      "value": "[0-9_]"
+    },
+    "__identifier__identifier_start__inline_char": {
+      "type": "PATTERN",
+      "value": "[A-Za-z]"
+    },
+    "__identifier_start__inline_char": {
+      "type": "PATTERN",
+      "value": "[\\[\\]]"
+    },
+    "_external_sigil": {
+      "type": "SYMBOL",
+      "name": "__external_sigil__inline_char"
+    },
+    "_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__inline_char__term_sigil"
+        }
+      ]
+    },
+    "_term_sigil": {
+      "type": "SYMBOL",
+      "name": "__identifier__inline_char__term_sigil"
+    },
+    "_identifier_start": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "__identifier__identifier_start__inline_char"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "__identifier_start__inline_char"
+        }
+      ]
     }
   },
   "extras": [],

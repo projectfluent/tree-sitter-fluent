@@ -2,18 +2,26 @@
 /* eslint no-control-regex: "off" */
 /* eslint no-unused-vars: ["error", { "args": "none" }] */
 
-const { ranges_without } = require('./dsl');
+const { Linter, ranges_without } = require('./dsl');
 
 // https://www.w3.org/TR/REC-xml/#NT-Char
 // excluding two-word, \u{010000}-\u{10FFFF}
 const NT_Char = '\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD';
+
+const linter = new Linter();
+linter.addRangeList('_identifier_start', '[a-zA-Z]');
+linter.addRangeList('_identifier', 'a-zA-Z_0-9_-');
+linter.addRangeList('_term_sigil', '-');
+linter.addRangeList('_external_sigil', '$');
+linter.addRangeList('_inline_char', NT_Char, '\r\n\\{');
+linter.addRangeList('_comment_char', NT_Char, '\r\n');
 
 module.exports = grammar({
   name: 'fluent',
 
   extras: $ => [],
 
-  rules: {
+  rules: Object.assign({
     body: $ => seq(
       repeat($._blank_line),
       repeat(seq(
@@ -38,9 +46,20 @@ module.exports = grammar({
     block_comment: $ => seq('##', optional(/[ \t].*/)),
     comment: $ => seq('#', optional(/[ \t].*/)),
 
-    identifier: $ => /[a-zA-Z][a-zA-Z_0-9_-]+/,
-    term_identifier: $ => /-[a-zA-Z][a-zA-Z_0-9_-]+/,
-    external_identifier: $ => /\$[a-zA-Z][a-zA-Z_0-9_-]+/,
+    identifier: $ => seq(
+      $._identifier_start,
+      repeat($._identifier)
+    ),
+    term_identifier: $ => seq(
+      $._term_sigil,
+      $._identifier_start,
+      repeat($._identifier)
+    ),
+    external_identifier: $ => seq(
+      $._external_sigil,
+      $._identifier_start,
+      repeat($._identifier)
+    ),
 
     /* line feed, carriage return; space, tab */
     _line_break: $ => /[\u000A\u000D]+/,
@@ -50,7 +69,6 @@ module.exports = grammar({
     /* if you break lines you need to indent afterwards */
     _break_indent: $ => seq($._line_break, $._inline_space),
 
-    _inline_char: $ => ranges_without(NT_Char, '\r\n\\{'),
     _char: $ => choice($._inline_char, $._line_break),
     _hexdigit: $ => /[0-9a-fA-F]/,
     _text: $ => repeat1(
@@ -82,5 +100,5 @@ module.exports = grammar({
     ),
 
     pattern: $ => $._text
-  }
+  }, linter.rules())
 });
