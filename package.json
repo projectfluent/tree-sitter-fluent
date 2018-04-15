@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",
     "profile": "tree-sitter parse examples --quiet --time",
-    "test": "vows test/test-*.js && tree-sitter test"
+    "test": "vows test/test-*.js && tree-sitter test && eslint grammar.js dsl test"
   },
   "keywords": [
     "parser",
@@ -19,6 +19,7 @@
     "nan": "^2.4.0"
   },
   "devDependencies": {
+    "eslint": "^5.0.0-alpha.1",
     "tree-sitter-cli": "^0.11.3"
   }
 }

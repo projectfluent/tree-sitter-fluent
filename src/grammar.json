@@ -147,15 +147,15 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z_0-9_\\-]+"
+      "value": "[a-zA-Z][a-zA-Z_0-9_-]+"
     },
     "term_identifier": {
       "type": "PATTERN",
-      "value": "-[a-zA-Z][a-zA-Z_0-9_\\-]+"
+      "value": "-[a-zA-Z][a-zA-Z_0-9_-]+"
     },
     "external_identifier": {
       "type": "PATTERN",
-      "value": "\\$[a-zA-Z][a-zA-Z_0-9_\\-]+"
+      "value": "\\$[a-zA-Z][a-zA-Z_0-9_-]+"
     },
     "_line_break": {
       "type": "PATTERN",

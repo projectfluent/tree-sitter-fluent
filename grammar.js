@@ -1,3 +1,7 @@
+/* global grammar, choice, optional, repeat, repeat1, seq */
+/* eslint no-control-regex: "off" */
+/* eslint no-unused-vars: ["error", { "args": "none" }] */
+
 const { ranges_without } = require('./dsl');
 
 // https://www.w3.org/TR/REC-xml/#NT-Char
@@ -5,7 +9,7 @@ const { ranges_without } = require('./dsl');
 const NT_Char = '\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD';
 
 module.exports = grammar({
-  name: "fluent",
+  name: 'fluent',
 
   extras: $ => [],
 
@@ -30,13 +34,13 @@ module.exports = grammar({
       $.resource_comment,
       $.block_comment,
       $.comment),
-    resource_comment: $ => seq("###", optional(/[ \t].*/)),
-    block_comment: $ => seq("##", optional(/[ \t].*/)),
-    comment: $ => seq("#", optional(/[ \t].*/)),
+    resource_comment: $ => seq('###', optional(/[ \t].*/)),
+    block_comment: $ => seq('##', optional(/[ \t].*/)),
+    comment: $ => seq('#', optional(/[ \t].*/)),
 
-    identifier: $ => /[a-zA-Z][a-zA-Z_0-9_\-]+/,
-    term_identifier: $ => /-[a-zA-Z][a-zA-Z_0-9_\-]+/,
-    external_identifier: $ => /\$[a-zA-Z][a-zA-Z_0-9_\-]+/,
+    identifier: $ => /[a-zA-Z][a-zA-Z_0-9_-]+/,
+    term_identifier: $ => /-[a-zA-Z][a-zA-Z_0-9_-]+/,
+    external_identifier: $ => /\$[a-zA-Z][a-zA-Z_0-9_-]+/,
 
     /* line feed, carriage return; space, tab */
     _line_break: $ => /[\u000A\u000D]+/,
@@ -60,20 +64,20 @@ module.exports = grammar({
 
     message: $ => seq(
       $.identifier,
-      optional($._inline_space), "=", optional($._inline_space),
+      optional($._inline_space), '=', optional($._inline_space),
       $.pattern
     ),
 
     term: $ => seq(
       $.term_identifier,
-      optional($._inline_space), "=", optional($._inline_space),
+      optional($._inline_space), '=', optional($._inline_space),
       $.pattern
     ),
 
     attribute: $ => seq(
       $._break_indent,  // required indent
       '.', $.identifier,
-      optional($._inline_space), "=", optional($._inline_space),
+      optional($._inline_space), '=', optional($._inline_space),
       $.pattern
     ),
 
