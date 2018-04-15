@@ -9,6 +9,10 @@
 
 class Range {
   constructor(start, end=undefined) {
+    if (start instanceof Range) {
+      end = start.end;
+      start = start.start;
+    }
     end = end || start;
     if (typeof start === 'string') {
       start = start.codePointAt(0);
