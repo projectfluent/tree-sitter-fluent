@@ -1,7 +1,6 @@
 # tree-sitter-fluent
-Fluent grammar for tree-sitter
 
-[![Build Status](https://travis-ci.org/projectfluent/tree-sitter-fluent.svg?branch=master)](https://travis-ci.org/projectfluent/tree-sitter-fluent)
+Fluent grammar for tree-sitter.
 
 Modify the grammar by editing `grammar.js`. Recreate the generated files in `src` via
 
