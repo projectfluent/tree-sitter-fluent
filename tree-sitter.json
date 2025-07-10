@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "fluent",
+      "camelcase": "Fluent",
+      "title": "Fluent",
+      "scope": "source.fluent",
+      "file-types": [
+        "ftl"
+      ],
+      "injection-regex": "^fluent$",
+      "class-name": "TreeSitterFluent"
+    }
+  ],
+  "metadata": {
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "description": "Fluent grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Axel Hecht"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/projectfluent/tree-sitter-fluent.git",
+      "funding": "https://projectfluent.org/"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

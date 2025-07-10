@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "fluent",
   "rules": {
     "body": {
@@ -159,11 +160,11 @@
     },
     "_line_break": {
       "type": "PATTERN",
-      "value": "[\n\r]+"
+      "value": "[\\u000A\\u000D]+"
     },
     "_inline_space": {
       "type": "PATTERN",
-      "value": "[ \t]+"
+      "value": "[\\u0020\\u0009]+"
     },
     "_blank_line": {
       "type": "SEQ",
@@ -403,6 +404,9 @@
   },
   "extras": [],
   "conflicts": [],
+  "precedences": [],
   "externals": [],
-  "inline": []
+  "inline": [],
+  "supertypes": [],
+  "reserved": {}
 }
